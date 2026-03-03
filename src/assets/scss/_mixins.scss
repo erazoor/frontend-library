@@ -1,0 +1,70 @@
+@use 'variables' as *;
+
+// ——————————————————————————————————————————
+// Breakpoint mixins
+// ——————————————————————————————————————————
+@mixin bp($breakpoint) {
+  @media (min-width: $breakpoint) {
+    @content;
+  }
+}
+
+@mixin bp-down($breakpoint) {
+  @media (max-width: ($breakpoint - 1px)) {
+    @content;
+  }
+}
+
+// ——————————————————————————————————————————
+// Layout
+// ——————————————————————————————————————————
+@mixin container {
+  width: 100%;
+  max-width: $container-max;
+  margin-inline: auto;
+  padding-inline: $space-md;
+
+  @media (min-width: $bp-md) {
+    padding-inline: $container-padding;
+  }
+}
+
+@mixin touch-only {
+  @media (hover: none) and (pointer: coarse) {
+    @content;
+  }
+}
+
+@mixin full-bleed {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+}
+
+// ——————————————————————————————————————————
+// Interaction
+// ——————————————————————————————————————————
+@mixin hover {
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      @content;
+    }
+  }
+}
+
+// ——————————————————————————————————————————
+// Typography
+// ——————————————————————————————————————————
+@mixin text-clamp($lines: 2) {
+  display: -webkit-box;
+  -webkit-line-clamp: $lines;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+// ——————————————————————————————————————————
+// Visual
+// ——————————————————————————————————————————
+@mixin gpu {
+  will-change: transform;
+  backface-visibility: hidden;
+}
